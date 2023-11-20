@@ -1,11 +1,16 @@
 {
-  "name": "functions",
+  "name": "web-app-api",
   "version": "1.0.0",
   "description": "",
   "scripts": {
     "start": "func start",
     "test": "echo \"No tests yet...\""
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "@azure/functions": "^4.0.0"
+  },
+  "devDependencies": {
+    "@azure/static-web-apps-cli": "^1.1.6"
+  },
+  "main": "src/functions/*.js"
 }
