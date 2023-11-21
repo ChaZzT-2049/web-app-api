@@ -1,5 +1,6 @@
 import './App.css';
 import {useState, useEffect} from "react"
+import Products from './components/Products';
 
 function App() {
   const [data, setData] = useState('');
@@ -11,7 +12,8 @@ function App() {
   });
 
   return <div>
-    <h1>Hola mundo, <br/> {data}</h1>  
+    <h1>Hola mundo, {data}</h1> <br/>
+    <Products />
   </div>
 }
 
