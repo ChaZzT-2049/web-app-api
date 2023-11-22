@@ -6,6 +6,6 @@ app.http('message', {
     handler: async (request, context) => {
         // context.log(`Http function processed request for url "${request.url}"`);
         // const name = request.query.get('name') || await request.text() || 'world';
-        return { body: "Hola desde la api", status: 200 };
+        return { body: "Usando una API en azure", status: 200 };
     }
 });
