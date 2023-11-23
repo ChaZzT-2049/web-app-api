@@ -29,7 +29,7 @@ function App() {
       <Link to="/add">Agregar</Link>
     </nav>
     <Routes>
-      <Route path='/' element={<Products/>}/>
+      <Route path='/' element={<Products newNotification={newNotification}/>}/>
       <Route path="/add" element={<AddProduct newNotification={newNotification}/>} />
       <Route path='/edit' element={<EditProduct newNotification={newNotification}/>}/>
     </Routes>
