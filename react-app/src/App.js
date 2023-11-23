@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
 import Products from './components/Products';
 import AddProduct from './components/AddProduct';
 import Notifications from './components/Notifications';
+import EditProduct from "./components/EditProduct"
 
 function App() {
   const [message, setMessage] = useState('');
@@ -30,6 +31,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Products/>}/>
       <Route path="/add" element={<AddProduct newNotification={newNotification}/>} />
+      <Route path='/edit' element={<EditProduct newNotification={newNotification}/>}/>
     </Routes>
   </Router>
 }

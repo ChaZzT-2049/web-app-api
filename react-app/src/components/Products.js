@@ -1,6 +1,7 @@
 import { useLayoutEffect, useState } from "react"
-
+import { useNavigate } from "react-router-dom";
 const Products = () => {
+    const navigate = useNavigate()
     const [products, setProducts] = useState([]);
     useLayoutEffect(()=>{
         async function getProducts(){
@@ -16,7 +17,8 @@ const Products = () => {
             {
                 products.map((product) => <li key={product.id}>
                     {product.name}: <br />
-                    {product.description} <b>{product.quantity}</b>
+                    {product.description} <b>{product.quantity}</b> 
+                    <button onClick={()=>{navigate("/edit", {state: product})}}>Editar</button>
                 </li>)
             }
         </ul>
