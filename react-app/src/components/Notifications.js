@@ -1,7 +1,6 @@
 const Notifications = ({notification}) =>{
-
-    return <div>
-        <small>hola: {notification}</small>
+    return <div id="notification" className={notification.length > 0 ? "shown" : ""}>
+        <b>Alerta: </b>{notification}
     </div>
 }
 export default Notifications

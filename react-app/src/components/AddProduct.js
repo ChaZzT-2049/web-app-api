@@ -8,7 +8,7 @@ const AddProduct = ({newNotification}) => {
     const [description, setDescription] = useState("")
     const [quantity, setQuantity] = useState(1);
 
-    return <div>
+    return <section>
         <form onSubmit={async(e)=>{
             e.preventDefault()
             const response = await fetch("/api/products-post", {
@@ -36,9 +36,9 @@ const AddProduct = ({newNotification}) => {
                 setValue={setDescription} value={description} required={true} type="text" placeholder="Escribe una descripcion"/>
                 <Input id="quantity" label="Cantidad" 
                 setValue={setQuantity} value={quantity} required={true} type="number" placeholder="Ingresa la cantidad"/>
+                <button type="submit" className="action">Agregar</button>
             </fieldset>
-            <button type="submit">Agregar</button>
         </form>
-    </div>
+    </section>
 }
 export default AddProduct

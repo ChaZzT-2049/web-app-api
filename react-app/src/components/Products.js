@@ -1,5 +1,6 @@
 import { useLayoutEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
+import Modal from "./Modal";
 const Products = ({newNotification}) => {
     const navigate = useNavigate()
     const [products, setProducts] = useState([]);
@@ -14,47 +15,54 @@ const Products = ({newNotification}) => {
         getProducts()
     },[])
     return <section>
-        <h3>Products</h3>
+        <h3>Productos</h3>
         {products.length === 0 && <span>Agrega Productos</span>}
         <ul>
             {
-                products.map((product) => <li key={product.id}>
-                    {product.name}: <br />
-                    {product.description} <b>{product.quantity}</b> 
-                    <button onClick={()=>{navigate("/edit", {state: product})}}>Editar</button>
-                    <button onClick={()=>{
-                        setDialog(true)
-                        setProductDelete(product)
-                    }}>Eliminar</button>
+                products.map((product) => <li className="item" key={product.id}>
+                    <h4>{product.name}:</h4>
+                    <span>{product.description} <b>{product.quantity}</b></span> 
+                    <div className="buttons">
+                        <button className="action" onClick={()=>{navigate("/edit", {state: product})}}>Editar</button>
+                        <button className="delete" onClick={()=>{
+                            setDialog(true)
+                            setProductDelete(product)
+                        }}>Eliminar</button>
+                    </div>
                 </li>)
             }
         </ul>
-        <dialog open={dialog}>
+        <Modal open={dialog} close={()=>{setDialog(false)}}>
             <h3>¿Deseas eliminar el producto?</h3>
-            <div>
-                <span>{productDelete.name}</span> 
-                <small>{productDelete.quantity}</small>
+            <div className="info">
+                <span>{productDelete.name}</span>: 
+                <small> {productDelete.quantity}</small>
             </div>
-            <button onClick={()=>{setDialog(false); setProductDelete({})}}>cancelar</button>
-            <button onClick={async()=>{
-                const response = await fetch("/api/products-delete", {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        id: productDelete.id
-                    })
-                }).catch((error) => console.error("Error:", error))
-                const status = await response.json()
-                if(status.deleted){
+            <div className="buttons">
+                <button onClick={()=>{setDialog(false); setProductDelete({})}}>Cancelar</button>
+                <button className="delete" onClick={async()=>{
+                    const response = await fetch("/api/products-delete", {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            id: productDelete.id
+                        })
+                    }).catch((error) => console.error("Error:", error))
+                    const status = await response.json()
+                    if(status.deleted){
+                        getProducts()
+                        newNotification(status.message)
+                    }else{
+                        newNotification(status)
+                    }
                     setProducts([])
-                    getProducts()
-                    newNotification(status.message)
+                    setProductDelete({})
                     setDialog(false)
-                }
-            }}>Eliminar</button>
-        </dialog>
+                }}>Eliminar</button>
+            </div>
+        </Modal>
     </section>
 }
 export default Products
